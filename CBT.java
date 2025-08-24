@@ -131,5 +131,6 @@ class CBT {
         postOrder(ans);
         System.out.println("");
         levelOrder(ans);
+        System.out.println("Lets move to advance :-> ");
     }
 }
