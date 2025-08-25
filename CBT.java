@@ -119,10 +119,53 @@ class CBT {
         return Math.max(lh, rh) + 1;
     }
 
+    public static int diameter(Node root) {
+        if (root == null) {
+            return 0;
+        }
+        int ld = diameter(root.left);
+        int rd = diameter(root.right);
+        int cd = height(root.left) + height(root.right) + 1;
+
+        return Math.max(Math.max(ld, rd), cd);
+    }
+
+    public static boolean isIdentical(Node root, Node sub) {
+        if (root == null && sub == null) {
+            return true;
+        }
+        if (root == null || sub == null) {
+            return false;
+        }
+        if (root.data == sub.data) {
+            return isIdentical(root.left, sub.left) && isIdentical(root.right, sub.right);
+        }
+        return false;
+    }
+
+    public static boolean isSubTree(Node root, Node sub) {
+        if (sub == null) {
+            return true;
+        }
+        if (root == null) {
+            return false;
+        }
+        if (root.data == sub.data) {
+            if (isIdentical(root, sub)) {
+                return true;
+            }
+        }
+        return isSubTree(root.left, sub) || isSubTree(root.right, sub);
+    }
+
     public static void main(String[] args) {
         System.out.println("Try programiz.pro");
         int[] nodes = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
         Node ans = BT.buildTree(nodes);
+        BT.i = -1;
+        int sub[] = { 9, 4, -1, -1, 5, -1, -1 }; // ✅ Subtree
+
+        Node subRoot = BT.buildTree(sub);
         System.out.println(ans.data);
         preOrder(ans);
         System.out.println("");
@@ -132,5 +175,7 @@ class CBT {
         System.out.println("");
         levelOrder(ans);
         System.out.println("Lets move to advance :-> ");
+        boolean res = isIdentical(subRoot, subRoot);
+        System.out.println("Sub tree matches :-> " + res);
     }
 }
