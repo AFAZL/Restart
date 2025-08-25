@@ -158,6 +158,37 @@ class CBT {
         return isSubTree(root.left, sub) || isSubTree(root.right, sub);
     }
 
+    public static int kth(Node root, int i) {
+        if (root == null) {
+            return 0;
+        }
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        q.add(null);
+        int l = 1;
+        int s = 0;
+        while (!q.isEmpty()) {
+            Node c = q.remove();
+            if (c == null) {
+                l++;
+                if (!q.isEmpty()) {
+                    q.add(null);
+                }
+            } else {
+                if (l == i) {
+                    s = s + c.data;
+                }
+                if (c.left != null) {
+                    q.add(c.left);
+                }
+                if (c.right != null) {
+                    q.add(c.right);
+                }
+            }
+        }
+        return s;
+    }
+
     public static void main(String[] args) {
         System.out.println("Try programiz.pro");
         int[] nodes = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
