@@ -31,13 +31,31 @@ public class Classroom {
 
     }
 
+    public static void bfs(ArrayList<Edge> graph[], int v) {
+        Queue<Integer> q = new LinkedList<>();
+        boolean visit[] = new boolean[v];
+        q.add(0);
+        while (!q.isEmpty()) {
+            int curr = q.remove();
+            if (visit[curr] == false) {
+                System.out.println(curr);
+                visit[curr] = true;
+                for (int i = 0; i < graph[curr].size(); i++) {
+                    Edge e = graph[curr].get(i);
+                    q.add(e.dest);
+                }
+            }
+        }
+    }
+
     public static void main(String args[]) {
         int v = 4;
         ArrayList<Edge> graph[] = new ArrayList[v];
         createGraph(graph);
         for (int i = 0; i < graph[2].size(); i++) {
             Edge e = graph[2].get(i);
-            System.out.print(e.dest + "  ");
+            System.out.println(e.dest + " , " + e.wt);
         }
+        bfs(graph, 4);
     }
 }
