@@ -38,12 +38,23 @@ public class Classroom {
         while (!q.isEmpty()) {
             int curr = q.remove();
             if (visit[curr] == false) {
-                System.out.println(curr);
+                System.out.print(curr + " ");
                 visit[curr] = true;
                 for (int i = 0; i < graph[curr].size(); i++) {
                     Edge e = graph[curr].get(i);
                     q.add(e.dest);
                 }
+            }
+        }
+    }
+
+    public static void dfs(ArrayList<Edge> graph[], int curr, boolean visit[]) {
+        System.out.print(curr + " ");
+        visit[curr] = true;
+        for (int i = 0; i < graph[curr].size(); i++) {
+            Edge e = graph[curr].get(i);
+            if (visit[e.dest] == false) {
+                dfs(graph, e.dest, visit);
             }
         }
     }
@@ -57,5 +68,7 @@ public class Classroom {
             System.out.println(e.dest + " , " + e.wt);
         }
         bfs(graph, 4);
+        boolean visit[] = new boolean[4];
+        dfs(graph, 0, visit);
     }
 }
